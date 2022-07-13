@@ -10,6 +10,7 @@ import tensorflow as tf
 tf.compat.v1.disable_eager_execution()
 sess  = tf.compat.v1.InteractiveSession()
 import pickle
+import os
 
 def generalized_hill_function(X):
     return tf.concat([[(1 + a11_tf*X[1]**n1_tf + a12_tf*X[3]**n2_tf + a13_tf*X[5]**n3_tf)/(1 + b11_tf*X[0]**n1_tf + b12_tf*X[1]**n2_tf + b13_tf*X[1]**n3_tf)], 
@@ -76,59 +77,59 @@ Xp=tf.compat.v1.placeholder(tf.compat.v1.double, shape= (6, batchsize))
 Xf=tf.compat.v1.placeholder(tf.compat.v1.double, shape= (6, batchsize))
 
 
-learning_rate = 5e-3;#np.array([1/10**i for i in range(0, 5)])
-reg = np.array([1/10**i for i in range(0, 5)])
 reg_const1_list = [10**(-i) for i in range(0, 6)]
 reg_const2_list = [10**(-i) for i in range(0, 6)]
+learning_rate_list = [5*10**(-i) for i in range(0, 6)]
 
-for reg_const1 in reg_const1_list:
-    for reg_const2 in reg_const2_list:
-        c = 100
-        cost_list = [0]
-        iteration = 0
-        cost = tf.reduce_sum(tf.linalg.norm(Xf - tf.matmul(Kx_tf, tf.concat([Xp, generalized_hill_function(Xp)], axis = 0)),ord=1))/tf.reduce_sum(tf.linalg.norm(Xf,ord=1)) + reg_const1*tf.pow(tf.norm(Kx_tf[0: num_states, 0: num_states], ord = 1, axis = (0, 1)), 2) + reg_const2*tf.pow(tf.norm(Kx_tf[num_states:, num_states:], ord = 1, axis = (0, 1)), 2)# + reg_const*tf.nn.relu(tf.math.negative(Kx_tf[1, 6:9]))
-        
-        optimizer = tf.compat.v1.train.AdamOptimizer(learning_rate=learning_rate, beta1=0.85, beta2=0.85, epsilon=1e-08, use_locking=False, name='Adam').minimize(cost)
-        init = tf.compat.v1.global_variables_initializer()
-        
-        
-        
-        #cost = (tf.reduce_sum(tf.pow(Xf - tf.matmul(Kx_tf, tf.concat([Xp, generalized_hill_function(Xp)], axis = 0)), 2)) + lambda_reg*tf.pow(tf.norm(Kx_tf[0: num_states, 0: num_states+3], ord = 'fro', axis = (0, 1)), 2))/Xp_data.shape[1]
+for learning_rate in learning_rate_list:
+    for reg_const1 in reg_const1_list:
+        for reg_const2 in reg_const2_list:
+            c = 100
+            cost_list = [0]
+            iteration = 0
+            cost = tf.reduce_sum(tf.linalg.norm(Xf - tf.matmul(Kx_tf, tf.concat([Xp, generalized_hill_function(Xp)], axis = 0)),ord=1))/tf.reduce_sum(tf.linalg.norm(Xf,ord=1)) + reg_const1*tf.pow(tf.norm(Kx_tf[0: num_states, 0: num_states], ord = 1, axis = (0, 1)), 2) + reg_const2*tf.pow(tf.norm(Kx_tf[num_states:, num_states:], ord = 1, axis = (0, 1)), 2)# + reg_const*tf.nn.relu(tf.math.negative(Kx_tf[1, 6:9]))
+            
+            optimizer = tf.compat.v1.train.AdamOptimizer(learning_rate=learning_rate, beta1=0.85, beta2=0.85, epsilon=1e-08, use_locking=False, name='Adam').minimize(cost)
+            init = tf.compat.v1.global_variables_initializer()
+            
+            
+            
+            #cost = (tf.reduce_sum(tf.pow(Xf - tf.matmul(Kx_tf, tf.concat([Xp, generalized_hill_function(Xp)], axis = 0)), 2)) + lambda_reg*tf.pow(tf.norm(Kx_tf[0: num_states, 0: num_states+3], ord = 'fro', axis = (0, 1)), 2))/Xp_data.shape[1]
 
-        with tf.compat.v1.Session() as sesh:    
-            sesh.run(init)    
-            #print("Initial n1", sesh.run(n1))
-            SamplingDataIndices = np.array(range(0,Xp_data.shape[1]))
+            with tf.compat.v1.Session() as sesh:    
+                sesh.run(init)    
+                #print("Initial n1", sesh.run(n1))
+                SamplingDataIndices = np.array(range(0,Xp_data.shape[1]))
 
-            for epoch in range(0,max_epochs):
-                
-                for DennisIndex in range(0,10):
-                    np.random.shuffle(SamplingDataIndices)
-                
-                #print('here')
-                while iteration*batchsize<Xp_data.shape[1]:
-                    Xp_data_subsample = Xp_data[:,SamplingDataIndices[iteration*batchsize:(iteration+1)*batchsize]]
-                    Xf_data_subsample = Xf_data[:,SamplingDataIndices[iteration*batchsize:(iteration+1)*batchsize]]
-                    c = sesh.run(cost, feed_dict = {Xp: np.array(Xp_data_subsample), Xf: np.array(Xf_data_subsample)})
-                    cost_list.append(c)
+                for epoch in range(0,max_epochs):
                     
-                        #print("Exponent", sesh.run(n1))
-                        #print("R2", sesh.run(R2, feed_dict = {Xp: np.array(Xp_data), Xf: np.array(Xf_data)}))
-                    sesh.run(optimizer, feed_dict = {Xp: np.array(Xp_data_subsample), Xf: np.array(Xf_data_subsample)})
-                    iteration+=1
-                #print(sesh.run(cost, feed_dict = {Xp: np.array(Xp_data_subsample), Xf: np.array(Xf_data_subsample)}))
-                iteration = 0;
-                if epoch % 20 == 0:
-                    print("epoch:", epoch, "{:.5f}".format(c))
-                checkpoint_dir = "checkpoints"
+                    for DennisIndex in range(0,10):
+                        np.random.shuffle(SamplingDataIndices)
+                    
+                    #print('here')
+                    while iteration*batchsize<Xp_data.shape[1]:
+                        Xp_data_subsample = Xp_data[:,SamplingDataIndices[iteration*batchsize:(iteration+1)*batchsize]]
+                        Xf_data_subsample = Xf_data[:,SamplingDataIndices[iteration*batchsize:(iteration+1)*batchsize]]
+                        c = sesh.run(cost, feed_dict = {Xp: np.array(Xp_data_subsample), Xf: np.array(Xf_data_subsample)})
+                        cost_list.append(c)
+                        
+                            #print("Exponent", sesh.run(n1))
+                            #print("R2", sesh.run(R2, feed_dict = {Xp: np.array(Xp_data), Xf: np.array(Xf_data)}))
+                        sesh.run(optimizer, feed_dict = {Xp: np.array(Xp_data_subsample), Xf: np.array(Xf_data_subsample)})
+                        iteration+=1
+                    #print(sesh.run(cost, feed_dict = {Xp: np.array(Xp_data_subsample), Xf: np.array(Xf_data_subsample)}))
+                    iteration = 0;
+                    if epoch % 20 == 0:
+                        print("epoch:", epoch, "{:.5f}".format(c))
+                    checkpoint_dir = "checkpoints"
 
-            # Create the directory if it does not already exist
-            if not os.path.exists(checkpoint_dir):
-                os.makedirs(checkpoint_dir)
+                # Create the directory if it does not already exist
+                if not os.path.exists(checkpoint_dir):
+                    os.makedirs(checkpoint_dir)
 
-            # Specify the path to the checkpoint file
-            checkpoint_file = os.path.join(checkpoint_dir, "reg1"+str(reg_const1) + "reg2"+str(reg_const2)+".chk")
+                # Specify the path to the checkpoint file
+                checkpoint_file = os.path.join(checkpoint_dir, "reg1"+str(reg_const1) + "reg2"+str(reg_const2)+".chk")
 
-            saver = tf.compat.v1.train.Saver(name="saver"+"reg1"+str(reg_const1) + "reg2"+str(reg_const2))
-            saver.save(sesh, checkpoint_file)
+                saver = tf.compat.v1.train.Saver(name="saver"+"reg1"+str(reg_const1) + "reg2"+str(reg_const2))
+                saver.save(sesh, checkpoint_file)
 
