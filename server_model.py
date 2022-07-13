@@ -67,9 +67,9 @@ b33_tf = tf.Variable(tf.compat.v1.truncated_normal((1, ), mean = 0,stddev=1,dtyp
 Kx_tf = tf.Variable(tf.compat.v1.truncated_normal((6, 9), mean=0.0,stddev=1.0,dtype=tf.double));
 #np.abs(Y - W*b)
 
-training_iterations = 20000
+#training_iterations = 20000
 batchsize = 400;
-max_epochs = 500
+max_epochs = 2000
 
 Xp=tf.compat.v1.placeholder(tf.compat.v1.double, shape= (6, batchsize))
 
