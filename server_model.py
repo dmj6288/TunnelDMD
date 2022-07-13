@@ -10,7 +10,6 @@ import tensorflow as tf
 tf.compat.v1.disable_eager_execution()
 sess  = tf.compat.v1.InteractiveSession()
 import pickle
-    import numpy
 
 def generalized_hill_function(X):
     return tf.concat([[(1 + a11_tf*X[1]**n1_tf + a12_tf*X[3]**n2_tf + a13_tf*X[5]**n3_tf)/(1 + b11_tf*X[0]**n1_tf + b12_tf*X[1]**n2_tf + b13_tf*X[1]**n3_tf)], 
