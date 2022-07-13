@@ -76,7 +76,7 @@ Xp=tf.compat.v1.placeholder(tf.compat.v1.double, shape= (6, batchsize))
 Xf=tf.compat.v1.placeholder(tf.compat.v1.double, shape= (6, batchsize))
 
 
-learning_rates = [5e-3];#np.array([1/10**i for i in range(0, 5)])
+learning_rate = 5e-3;#np.array([1/10**i for i in range(0, 5)])
 reg = np.array([1/10**i for i in range(0, 5)])
 reg_const1_list = [10**(-i) for i in range(0, 6)]
 reg_const2_list = [10**(-i) for i in range(0, 6)]
