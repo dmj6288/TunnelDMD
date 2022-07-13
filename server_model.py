@@ -128,8 +128,8 @@ for learning_rate in learning_rate_list:
                     os.makedirs(checkpoint_dir)
 
                 # Specify the path to the checkpoint file
-                checkpoint_file = os.path.join(checkpoint_dir, "reg1"+str(reg_const1) + "reg2"+str(reg_const2)+".chk")
+                checkpoint_file = os.path.join(checkpoint_dir, "LR"+str(learning_rate)+"reg1"+str(reg_const1) + "reg2"+str(reg_const2)+".chk")
 
-                saver = tf.compat.v1.train.Saver(name="saver"+"reg1"+str(reg_const1) + "reg2"+str(reg_const2))
+                saver = tf.compat.v1.train.Saver(name="saver"+"LR"+str(learning_rate)+"reg1"+str(reg_const1) + "reg2"+str(reg_const2))
                 saver.save(sesh, checkpoint_file)
 
