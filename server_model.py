@@ -10,7 +10,6 @@ import tensorflow as tf
 tf.compat.v1.disable_eager_execution()
 sess  = tf.compat.v1.InteractiveSession()
 import pickle
-from scipy.signal import savgol_filter
 import scipy
 import joblib
 import numpy
