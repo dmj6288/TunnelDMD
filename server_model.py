@@ -10,7 +10,7 @@ import tensorflow as tf
 tf.compat.v1.disable_eager_execution()
 sess  = tf.compat.v1.InteractiveSession()
 import pickle
-import numpy
+    import numpy
 
 def generalized_hill_function(X):
     return tf.concat([[(1 + a11_tf*X[1]**n1_tf + a12_tf*X[3]**n2_tf + a13_tf*X[5]**n3_tf)/(1 + b11_tf*X[0]**n1_tf + b12_tf*X[1]**n2_tf + b13_tf*X[1]**n3_tf)], 
@@ -33,7 +33,7 @@ with open('rearranged_dsgrn_simulation_data_unscaled.pickle', 'rb') as handle:
 Xp_data = Xp_data_raw;
 Xf_data = Xf_data_raw;
 
-
+num_states = 6
 
 a11_tf  = tf.Variable(tf.compat.v1.truncated_normal((1, ), mean=0,stddev=1,dtype=tf.double))
 a12_tf   = tf.Variable(tf.compat.v1.truncated_normal((1, ), mean = 0,stddev=1,dtype=tf.double))
