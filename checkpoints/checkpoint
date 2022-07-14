@@ -1,2 +1,2 @@
-model_checkpoint_path: "LR5reg10.1reg20.0001.chk"
-all_model_checkpoint_paths: "LR5reg10.1reg20.0001.chk"
+model_checkpoint_path: "LR5e-05reg11e-05reg21e-05.chk"
+all_model_checkpoint_paths: "LR5e-05reg11e-05reg21e-05.chk"
