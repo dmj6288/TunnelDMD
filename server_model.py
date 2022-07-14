@@ -77,9 +77,9 @@ Xp=tf.compat.v1.placeholder(tf.compat.v1.double, shape= (6, batchsize))
 Xf=tf.compat.v1.placeholder(tf.compat.v1.double, shape= (6, batchsize))
 
 
-reg_const1_list = [10**(-i) for i in range(3, 6)]
-reg_const2_list = [10**(-i) for i in range(3, 6)]
-learning_rate_list = [5*10**(-i) for i in range(3, 6)]
+reg_const1_list = [10**(-i) for i in range(3, 4)]
+reg_const2_list = [10**(-i) for i in range(3, 4)]
+learning_rate_list = [5*10**(-i) for i in range(3, 4)]
 
 for learning_rate in learning_rate_list:
     for reg_const1 in reg_const1_list:
@@ -87,7 +87,7 @@ for learning_rate in learning_rate_list:
             c = 100
             cost_list = [0]
             iteration = 0
-            cost = tf.reduce_sum(tf.linalg.norm(Xf - tf.matmul(Kx_tf, tf.concat([Xp, generalized_hill_function(Xp)], axis = 0)),ord=1))/tf.reduce_sum(tf.linalg.norm(Xf,ord=1)) + reg_const1*tf.pow(tf.norm(Kx_tf[0: num_states, 0: num_states], ord = 1, axis = (0, 1)), 2) + reg_const2*tf.pow(tf.norm(Kx_tf[num_states:, num_states:], ord = 1, axis = (0, 1)), 2)# + reg_const*tf.nn.relu(tf.math.negative(Kx_tf[1, 6:9]))
+            cost = tf.reduce_sum(tf.linalg.norm(Xf - tf.matmul(Kx_tf, tf.concat([Xp, generalized_hill_function(Xp)], axis = 0)),ord=1))/tf.reduce_sum(tf.linalg.norm(Xf,ord=1)) + reg_const1*tf.pow(tf.norm(Kx_tf[0: num_states, 0: num_states], ord = 1, axis = (0, 1)), 2) + reg_const2*tf.pow(tf.norm(Kx_tf[int(num_states/2):, num_states:], ord = 1, axis = (0, 1)), 2)# + reg_const*tf.nn.relu(tf.math.negative(Kx_tf[1, 6:9]))
             
             optimizer = tf.compat.v1.train.AdamOptimizer(learning_rate=learning_rate, beta1=0.85, beta2=0.85, epsilon=1e-08, use_locking=False, name='Adam').minimize(cost)
             init = tf.compat.v1.global_variables_initializer()
