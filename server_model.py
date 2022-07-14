@@ -70,7 +70,7 @@ Kx_tf = tf.Variable(tf.compat.v1.truncated_normal((6, 9), mean=0.0,stddev=1.0,dt
 
 #training_iterations = 20000
 batchsize = 400;
-max_epochs = 400
+max_epochs = 1
 
 Xp=tf.compat.v1.placeholder(tf.compat.v1.double, shape= (6, batchsize))
 
@@ -132,7 +132,5 @@ for learning_rate in learning_rate_list:
 
                 saver = tf.compat.v1.train.Saver(name="saver"+"LR"+str(learning_rate)+"reg1"+str(reg_const1) + "reg2"+str(reg_const2))
                 saver.save(sesh, checkpoint_file)
-            with open("LR"+str(learning_rate)+"reg1"+str(reg_const1) + "reg2"+str(reg_const2)+'.pickle', 'wb') as handle:
-                pickle.dump(sesh.run(Kx_tf), reg_const1, reg_const2, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-
+                with open("LR"+str(learning_rate)+"reg1"+str(reg_const1) + "reg2"+str(reg_const2)+'.pickle', 'wb') as handle:
+                    pickle.dump(sesh.run(Kx_tf), reg_const1, reg_const2, handle, protocol=pickle.HIGHEST_PROTOCOL)
