@@ -35,51 +35,52 @@ Xf_data = Xf_data_raw;
 
 num_states = 6
 
-a11_tf  = tf.Variable(tf.compat.v1.truncated_normal((1, ), mean=0,stddev=1,dtype=tf.double))
-a12_tf   = tf.Variable(tf.compat.v1.truncated_normal((1, ), mean = 0,stddev=1,dtype=tf.double))
-a13_tf   = tf.Variable(tf.compat.v1.truncated_normal((1, ), mean = 0,stddev=1,dtype=tf.double))
+a11_tf  = tf.Variable(tf.compat.v1.truncated_normal((1, ), mean = 5,stddev = 1,dtype=tf.double))
+a12_tf   = tf.Variable(tf.compat.v1.truncated_normal((1, ), mean = 5,stddev = 1,dtype=tf.double))
+a13_tf   = tf.Variable(tf.compat.v1.truncated_normal((1, ), mean = 5,stddev = 1,dtype=tf.double))
 
-b11_tf = tf.Variable(tf.compat.v1.truncated_normal((1, ), mean = 0,stddev=1,dtype=tf.double))
-b12_tf = tf.Variable(tf.compat.v1.truncated_normal((1, ), mean = 0,stddev=1,dtype=tf.double))
-b13_tf = tf.Variable(tf.compat.v1.truncated_normal((1, ), mean = 0,stddev=1,dtype=tf.double))
-
-
-n1_tf = tf.Variable(tf.compat.v1.truncated_normal((1, ), mean = 0,stddev=1,dtype=tf.double))
-n2_tf = tf.Variable(tf.compat.v1.truncated_normal((1, ), mean = 0,stddev=1,dtype=tf.double))
-n3_tf = tf.Variable(tf.compat.v1.truncated_normal((1, ), mean = 0,stddev=1,dtype=tf.double))
-
-a21_tf  = tf.Variable(tf.compat.v1.truncated_normal((1, ), mean = 0,stddev=1,dtype=tf.double))
-a22_tf   = tf.Variable(tf.compat.v1.truncated_normal((1, ), mean = 0,stddev=1,dtype=tf.double))
-a23_tf   = tf.Variable(tf.compat.v1.truncated_normal((1, ), mean = 0,stddev=1,dtype=tf.double))
-
-b21_tf = tf.Variable(tf.compat.v1.truncated_normal((1, ), mean = 0,stddev=1,dtype=tf.double))
-b22_tf = tf.Variable(tf.compat.v1.truncated_normal((1, ), mean = 0,stddev=1,dtype=tf.double))
-b23_tf = tf.Variable(tf.compat.v1.truncated_normal((1, ), mean = 0,stddev=1,dtype=tf.double))
+b11_tf = tf.Variable(tf.compat.v1.truncated_normal((1, ), mean = 5,stddev = 1,dtype=tf.double))
+b12_tf = tf.Variable(tf.compat.v1.truncated_normal((1, ), mean = 5,stddev = 1,dtype=tf.double))
+b13_tf = tf.Variable(tf.compat.v1.truncated_normal((1, ), mean = 5,stddev = 1,dtype=tf.double))
 
 
-a31_tf  = tf.Variable(tf.compat.v1.truncated_normal((1, ), mean = 0,stddev=1,dtype=tf.double))
-a32_tf   = tf.Variable(tf.compat.v1.truncated_normal((1, ), mean = 0,stddev=1,dtype=tf.double))
-a33_tf   = tf.Variable(tf.compat.v1.truncated_normal((1, ), mean = 0,stddev=1,dtype=tf.double))
+n1_tf = tf.Variable(tf.compat.v1.truncated_normal((1, ), mean = 5,stddev = 1,dtype=tf.double))
+n2_tf = tf.Variable(tf.compat.v1.truncated_normal((1, ), mean = 5,stddev = 1,dtype=tf.double))
+n3_tf = tf.Variable(tf.compat.v1.truncated_normal((1, ), mean = 5,stddev = 1,dtype=tf.double))
 
-b31_tf = tf.Variable(tf.compat.v1.truncated_normal((1, ), mean = 0,stddev=1,dtype=tf.double))
-b32_tf = tf.Variable(tf.compat.v1.truncated_normal((1, ), mean = 0,stddev=1,dtype=tf.double))
-b33_tf = tf.Variable(tf.compat.v1.truncated_normal((1, ), mean = 0,stddev=1,dtype=tf.double))
+a21_tf  = tf.Variable(tf.compat.v1.truncated_normal((1, ), mean = 5,stddev = 1,dtype=tf.double))
+a22_tf   = tf.Variable(tf.compat.v1.truncated_normal((1, ), mean = 5,stddev = 1,dtype=tf.double))
+a23_tf   = tf.Variable(tf.compat.v1.truncated_normal((1, ), mean = 5,stddev = 1,dtype=tf.double))
 
-Kx_tf = tf.Variable(tf.compat.v1.truncated_normal((6, 9), mean=0.0,stddev=1.0,dtype=tf.double));
+b21_tf = tf.Variable(tf.compat.v1.truncated_normal((1, ), mean = 5,stddev = 1,dtype=tf.double))
+b22_tf = tf.Variable(tf.compat.v1.truncated_normal((1, ), mean = 5,stddev = 1,dtype=tf.double))
+b23_tf = tf.Variable(tf.compat.v1.truncated_normal((1, ), mean = 5,stddev = 1,dtype=tf.double))
+
+
+a31_tf  = tf.Variable(tf.compat.v1.truncated_normal((1, ), mean = 5,stddev = 1,dtype=tf.double))
+a32_tf   = tf.Variable(tf.compat.v1.truncated_normal((1, ), mean = 5,stddev = 1,dtype=tf.double))
+a33_tf   = tf.Variable(tf.compat.v1.truncated_normal((1, ), mean = 5,stddev = 1,dtype=tf.double))
+
+b31_tf = tf.Variable(tf.compat.v1.truncated_normal((1, ), mean = 5,stddev = 1,dtype=tf.double))
+b32_tf = tf.Variable(tf.compat.v1.truncated_normal((1, ), mean = 5,stddev = 1,dtype=tf.double))
+b33_tf = tf.Variable(tf.compat.v1.truncated_normal((1, ), mean = 5,stddev = 1,dtype=tf.double))
+
+Kx_tf = tf.Variable(tf.compat.v1.truncated_normal((6, 9), mean=1,stddev = 1,dtype=tf.double));
 #np.abs(Y - W*b)
 
 #training_iterations = 20000
-batchsize = 400;
-max_epochs = 1
+batchsize  = 400;
+max_epochs = 1000
 
 Xp=tf.compat.v1.placeholder(tf.compat.v1.double, shape= (6, batchsize))
 
 Xf=tf.compat.v1.placeholder(tf.compat.v1.double, shape= (6, batchsize))
 
 
-reg_const1_list = [10**(-i) for i in range(3, 4)]
-reg_const2_list = [10**(-i) for i in range(3, 4)]
-learning_rate_list = [5*10**(-i) for i in range(3, 4)]
+reg_const1_list = [0]+sorted((np.array([[j*10**(-i) for j in [2, 4, 6, 8]] for i in range(1, 8)]).reshape(1, 28)[0]))+[1]
+reg_const2_list = reg_const1_list
+
+learning_rate_list = [5e-3]
 
 for learning_rate in learning_rate_list:
     for reg_const1 in reg_const1_list:
@@ -119,7 +120,7 @@ for learning_rate in learning_rate_list:
                         iteration+=1
                     #print(sesh.run(cost, feed_dict = {Xp: np.array(Xp_data_subsample), Xf: np.array(Xf_data_subsample)}))
                     iteration = 0;
-                    if epoch % 20 == 0:
+                    if epoch % 100 == 0:
                         print("epoch:", epoch, "{:.5f}".format(c))
                     checkpoint_dir = "checkpoints"
 
