@@ -1,0 +1,2 @@
+model_checkpoint_path: "LR0.005reg10.001reg20.001.chk"
+all_model_checkpoint_paths: "LR0.005reg10.001reg20.001.chk"
