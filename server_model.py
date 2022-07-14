@@ -133,4 +133,4 @@ for learning_rate in learning_rate_list:
                 saver = tf.compat.v1.train.Saver(name="saver"+"LR"+str(learning_rate)+"reg1"+str(reg_const1) + "reg2"+str(reg_const2))
                 saver.save(sesh, checkpoint_file)
                 with open("LR"+str(learning_rate)+"reg1"+str(reg_const1) + "reg2"+str(reg_const2)+'.pickle', 'wb') as handle:
-                    pickle.dump(sesh.run(Kx_tf), reg_const1, reg_const2, handle, protocol=pickle.HIGHEST_PROTOCOL)
+                    pickle.dump([sesh.run(Kx_tf), reg_const1, reg_const2], handle, protocol=pickle.HIGHEST_PROTOCOL)
